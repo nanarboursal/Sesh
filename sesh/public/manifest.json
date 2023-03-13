@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Sesh Extension",
+    "version": "1.0.0",
+    "description": "Sesh is a chrome extension geared towards increasing one's productivity and health.",
+    "action": {
+        "default_title": "Sesh",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "storage",
+        "alarms",
+        "notifications"
+    ]
+}
