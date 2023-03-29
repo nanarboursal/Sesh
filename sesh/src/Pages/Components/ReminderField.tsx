@@ -124,7 +124,9 @@ function ReminderField(props: Reminder) {
       }}
       autoComplete="off"
     >
-      <div style={{ marginTop: 5 }}>{props.title}</div>
+      <div style={{ marginTop: 5, paddingTop: 10, paddingLeft: 10 }}>
+        {props.title}
+      </div>
 
       {!active && (
         <Grid container padding="10px" columnSpacing={{ xs: 1 }}>
