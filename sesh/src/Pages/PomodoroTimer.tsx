@@ -25,6 +25,10 @@ function PomodoroTimer() {
     return minutes * 60;
   }
 
+  function secondsToMinutes(seconds: number) {
+    return seconds / 60;
+  }
+
   function updateTimeElements() {
     chrome.storage.local.get(
       [
@@ -43,7 +47,7 @@ function PomodoroTimer() {
 
         if (res.pomoIsRunning) {
           setBreakTime(res.pomoBreakTimer);
-          setExtendedBreakTime(res.extendedBreakTimer);
+          setExtendedBreakTime(res.pomoExtendedBreakTimer);
           setFocusTime(res.pomoFocusTimer);
 
           const focusTime = res.currFocusTimer ?? 0;
@@ -126,6 +130,9 @@ function PomodoroTimer() {
       currSessions: 0,
       pomoIsRunning: false,
     });
+    setFocusTime(secondsToMinutes(focusTime));
+    setBreakTime(secondsToMinutes(breakTime));
+    setExtendedBreakTime(secondsToMinutes(extendedBreakTime));
     setIsActive(false);
   }
 
@@ -311,7 +318,7 @@ function PomodoroTimer() {
             </Grid>
             <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
               <Grid item xs={3}>
-                Focus time ({focusTime} min):
+                Focus time ({focusTime / 60} min):
               </Grid>
               <Grid item xs={8} id="focusTime">
                 -- not in use --
@@ -319,7 +326,7 @@ function PomodoroTimer() {
             </Grid>
             <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
               <Grid item xs={3}>
-                Break time ({breakTime} min):
+                Break time ({breakTime / 60} min):
               </Grid>
               <Grid item xs={8} id="breakTime">
                 -- not in use --
@@ -327,7 +334,7 @@ function PomodoroTimer() {
             </Grid>
             <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
               <Grid item xs={3}>
-                Extended Break time ({extendedBreakTime} min):
+                Extended Break Time ({extendedBreakTime / 60} min):
               </Grid>
               <Grid item xs={8} id="extendedBreakTime">
                 -- not in use --
