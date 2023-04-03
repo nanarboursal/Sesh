@@ -7,7 +7,7 @@
     "default_title": "Sesh",
     "default_popup": "index.html"
   },
-  "permissions": ["storage", "alarms", "notifications"],
+  "permissions": ["storage", "alarms", "notifications","history"],
   "background": {
     "service_worker": "background.js"
   }

@@ -42,6 +42,21 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       stretchTimer: time - 1,
     });
   });
+  chrome.history.search({ text: '', maxResults: 10 }, function (data) {
+    var localHistory = '';
+    data.forEach(function (page) {
+      // localStorage.setItem("localHistory",JSON.stringify(page.url));
+      localHistory = JSON.stringify(page.url)
+      console.log("printing local storage val", localHistory);
+      chrome.storage.local.set({
+        localHistory: JSON.stringify(page.url),
+      })
+      chrome.storage.local.get(["localHistory"], (res) => {
+        console.log("here we are", res)
+      });
+    });
+
+  });
 
   // Water Timer Logic
   chrome.storage.local.get(["waterTimer", "waterIsRunning"], (res) => {
@@ -140,8 +155,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
           if (currFocusTime + 1 == res.pomoFocusTimer) {
             console.log(
               "Session: " +
-                currSessions +
-                ", finished your LAST focus session next is extended break."
+              currSessions +
+              ", finished your LAST focus session next is extended break."
             );
             this.registration.showNotification("Sesh", {
               body: `You have completed your last focus session. Time to start your extended break!`,
