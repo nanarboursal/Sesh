@@ -140,8 +140,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
           if (currFocusTime + 1 == res.pomoFocusTimer) {
             console.log(
               "Session: " +
-                currSessions +
-                ", finished your LAST focus session next is extended break."
+              currSessions +
+              ", finished your LAST focus session next is extended break."
             );
             this.registration.showNotification("Sesh", {
               body: `You have completed your last focus session. Time to start your extended break!`,
@@ -178,4 +178,40 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       }
     }
   );
+});
+
+// Listen for a message
+chrome.runtime.onMessage.addListener((msg, sender, response) => {
+  if (msg.name == "fetchWords") {
+
+    // Call the API
+    const apiKey = "YOUR_API_KEY";
+    const todaysDate = new Date().toISOString().slice(0, 10);
+    const apiCaller = "https://api.wordnik.com/v4/words.json/wordOfTheDay?date=" + todaysDate + "&api_key=" + apiKey;
+    console.log(apiKey);
+    console.log(todaysDate);
+    console.log(apiCaller);
+
+    // Wait for a respons
+    // fetch(..)await..
+
+    const wordsExamples = [
+      "grenadine",
+      "pomegranate",
+      "hefty",
+      "gladious",
+      "pelter"
+    ];
+
+    const definitionsExamples = [
+      "thin syrup made from pomegranate juice; used in mixed drinks",
+      "shrub or small tree having large red many-seeded fruit",
+      "of considerable weight and size",
+      "any of numerous plants of the genus Gladiolus native chiefly to tropical and South Africa having sword-shaped leaves and one-sided spikes of brightly colored funnel-shaped flowers; widely cultivated",
+      "a thrower of missiles"
+    ];
+
+    // Send a response
+    response({ word: wordsExamples[0], def: definitionsExamples[0] });
+  }
 });
