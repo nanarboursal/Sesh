@@ -185,7 +185,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.name == "fetchWords") {
 
     // Call the API
-    const apiKey = "YOUR_API_KEY";
+    const apiKey = "2dyx2slt2hzkymaxmuh2b3hs53hswe644iim7jtp4pn7dn0x2";
     const todaysDate = new Date().toISOString().slice(0, 10);
     const apiCaller = "https://api.wordnik.com/v4/words.json/wordOfTheDay?date=" + todaysDate + "&api_key=" + apiKey;
     console.log(apiKey);
@@ -212,6 +212,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     ];
 
     // Send a response
+    // response({ word: apiCaller.word, def: apiCaller.definitions[0].text });
     response({ word: wordsExamples[0], def: definitionsExamples[0] });
   }
 });
