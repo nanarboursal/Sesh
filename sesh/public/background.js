@@ -182,37 +182,27 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 // Listen for a message
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  if (msg.name == "fetchWords") {
+  if (msg.name == "fetchWordOfTheDay") {
 
     // Call the API
     const apiKey = "2dyx2slt2hzkymaxmuh2b3hs53hswe644iim7jtp4pn7dn0x2";
     const todaysDate = new Date().toISOString().slice(0, 10);
     const apiCaller = "https://api.wordnik.com/v4/words.json/wordOfTheDay?date=" + todaysDate + "&api_key=" + apiKey;
-    console.log(apiKey);
-    console.log(todaysDate);
-    console.log(apiCaller);
 
-    // Wait for a respons
-    // fetch(..)await..
+    // Wait for a from the API
+    fetch(apiCaller).then(function (res) {
+      if (res.status !== 200) {
+        response({ word: "Error", def: "There was a problem loading the Word-of-the-Day." });
+        return;
+      }
+      // Send a response
+      res.json().then(function (data) {
+        response({ word: data.word, def: data.definitions[0].text });
+      });
+    }).catch(function (err) {
+      response({ word: "Error", def: "There was a problem loading the Word-of-the-Day." });
+    });
 
-    const wordsExamples = [
-      "grenadine",
-      "pomegranate",
-      "hefty",
-      "gladious",
-      "pelter"
-    ];
-
-    const definitionsExamples = [
-      "thin syrup made from pomegranate juice; used in mixed drinks",
-      "shrub or small tree having large red many-seeded fruit",
-      "of considerable weight and size",
-      "any of numerous plants of the genus Gladiolus native chiefly to tropical and South Africa having sword-shaped leaves and one-sided spikes of brightly colored funnel-shaped flowers; widely cultivated",
-      "a thrower of missiles"
-    ];
-
-    // Send a response
-    // response({ word: apiCaller.word, def: apiCaller.definitions[0].text });
-    response({ word: wordsExamples[0], def: definitionsExamples[0] });
+    return true;
   }
 });

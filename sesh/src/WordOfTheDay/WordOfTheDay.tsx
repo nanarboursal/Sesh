@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 function WordOfTheDay() {
 
-    const [word, setWord] = useState("ExampleWord");
-    const [definition, setDefinition] = useState("ExampleDefinition");
+    const [word, setWord] = useState("");
+    const [definition, setDefinition] = useState("");
 
     useEffect(() => {
-        chrome.runtime.sendMessage({ name: "fetchWords" }, (response) => {
+        chrome.runtime.sendMessage({ name: "fetchWordOfTheDay" }, (response) => {
             setWord(response.word);
             setDefinition(response.def);
         });
