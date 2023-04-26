@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Reminders from "../Pages/Reminders";
 import PomodoroTimer from "../Pages/PomodoroTimer";
 import BrowserHistory from "../Pages/BrowserHistory";
+import WordOfTheDay from "../WordOfTheDay/WordOfTheDay";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,6 +55,7 @@ function TabsSection() {
           <Tab label="Reminders" />
           <Tab label="Pomodoro Timer" />
           <Tab label="Browser History" />
+          <Tab label="Word of the Day" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -64,6 +66,9 @@ function TabsSection() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <BrowserHistory />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <WordOfTheDay />
       </TabPanel>
     </div>
   );
