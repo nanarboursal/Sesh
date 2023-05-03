@@ -187,7 +187,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     // Call the API
     const apiKey = "2dyx2slt2hzkymaxmuh2b3hs53hswe644iim7jtp4pn7dn0x2";
     // const todaysDate = new Date().toISOString().slice(0, 10);
-    const todaysDate = '2023-05-02';
+    const todaysDate = "2023-05-02";
     const apiCaller = "https://api.wordnik.com/v4/words.json/wordOfTheDay?date=" + todaysDate + "&api_key=" + apiKey;
 
     // Wait for a from the API
