@@ -147,10 +147,24 @@ function PomodoroTimer() {
       }}
       autoComplete="off"
     >
+      <p
+        style={{
+          marginBottom: "0px",
+          fontSize: "18px",
+          fontStyle: "bold",
+          fontWeight: 500,
+        }}
+      >
+        Pomodoro Timer
+      </p>
       {!active && (
         <Grid>
           <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
-            <Grid item xs={7} sx={{ paddingLeft: "5px", paddingTop: "10px" }}>
+            <Grid
+              item
+              xs={7}
+              sx={{ paddingLeft: "5px", paddingTop: "10px", fontWeight: 200 }}
+            >
               Focus Time
             </Grid>
             <Grid item xs={5}>
@@ -181,7 +195,11 @@ function PomodoroTimer() {
           </Grid>
 
           <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
-            <Grid item xs={7} sx={{ paddingLeft: "5px", paddingTop: "10px" }}>
+            <Grid
+              item
+              xs={7}
+              sx={{ paddingLeft: "5px", paddingTop: "10px", fontWeight: 200 }}
+            >
               Break Time
             </Grid>
             <Grid item xs={5}>
@@ -212,7 +230,11 @@ function PomodoroTimer() {
           </Grid>
 
           <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
-            <Grid item xs={7} sx={{ paddingLeft: "5px", paddingTop: "10px" }}>
+            <Grid
+              item
+              xs={7}
+              sx={{ paddingLeft: "5px", paddingTop: "10px", fontWeight: 200 }}
+            >
               Extended Break Time
             </Grid>
             <Grid item xs={5}>
@@ -245,7 +267,11 @@ function PomodoroTimer() {
           </Grid>
 
           <Grid container padding="10px" columnSpacing={{ xs: 3 }}>
-            <Grid item xs={7} sx={{ paddingLeft: "5px", paddingTop: "10px" }}>
+            <Grid
+              item
+              xs={7}
+              sx={{ paddingLeft: "5px", paddingTop: "10px", fontWeight: 200 }}
+            >
               Number of Sessions
             </Grid>
             <Grid item xs={5}>
