@@ -7,6 +7,10 @@ import Reminders from "../Pages/Reminders";
 import PomodoroTimer from "../Pages/PomodoroTimer";
 import BrowserHistory from "../Pages/BrowserHistory";
 import WordOfTheDay from "../WordOfTheDay/WordOfTheDay";
+import TimerIcon from '@mui/icons-material/Timer';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import HistoryIcon from '@mui/icons-material/History';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,10 +56,10 @@ function TabsSection() {
     <div>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Reminders" />
-          <Tab label="Pomodoro Timer" />
-          <Tab label="Browser History" />
-          <Tab label="Word of the Day" />
+          <Tab icon={<AccessAlarmIcon />} aria-label="Reminders" />
+          <Tab icon={<TimerIcon />} aria-label="Pomodoro Timer" />
+          <Tab icon={<HistoryIcon />} aria-label="Browser History" />
+          <Tab icon={<LocalLibraryIcon />} aria-label="Word of the Day" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
