@@ -186,21 +186,22 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
 
     // Call the API
     const apiKey = "2dyx2slt2hzkymaxmuh2b3hs53hswe644iim7jtp4pn7dn0x2";
-    const todaysDate = new Date().toISOString().slice(0, 10);
+    // const todaysDate = new Date().toISOString().slice(0, 10);
+    const todaysDate = '2023-05-02';
     const apiCaller = "https://api.wordnik.com/v4/words.json/wordOfTheDay?date=" + todaysDate + "&api_key=" + apiKey;
 
     // Wait for a from the API
     fetch(apiCaller).then(function (res) {
       if (res.status !== 200) {
-        response({ word: "Error", def: "There was a problem loading the Word-of-the-Day." });
+        response({ word: "Error", def: "There was a problem loading the Word-of-the-Day.", partOfSpeech: "Please try again later.", example: "Thank you." });
         return;
       }
       // Send a response
       res.json().then(function (data) {
-        response({ word: data.word, def: data.definitions[0].text });
+        response({ word: data.word, def: data.definitions[0].text, partOfSpeech: data.definitions[0].partOfSpeech, example: data.examples[0].text });
       });
     }).catch(function (err) {
-      response({ word: "Error", def: "There was a problem loading the Word-of-the-Day." });
+      response({ word: "Error", def: "There was a problem loading the Word-of-the-Day.", partOfSpeech: "Please try again later.", example: "Thank you." });
     });
 
     return true;
