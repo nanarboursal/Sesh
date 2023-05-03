@@ -124,7 +124,14 @@ function ReminderField(props: Reminder) {
       }}
       autoComplete="off"
     >
-      <div style={{ marginTop: 5, paddingTop: 10, paddingLeft: 10 }}>
+      <div
+        style={{
+          marginTop: 5,
+          paddingTop: 10,
+          paddingLeft: 10,
+          fontWeight: 200,
+        }}
+      >
         {props.title}
       </div>
 

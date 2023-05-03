@@ -192,15 +192,15 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     // Wait for a from the API
     fetch(apiCaller).then(function (res) {
       if (res.status !== 200) {
-        response({ word: "Error", def: "There was a problem loading the Word-of-the-Day." });
+        response({ word: "Error", def: "There was a problem loading the Word-of-the-Day.", partOfSpeech: "Please try again later.", example: "Thank you." });
         return;
       }
       // Send a response
       res.json().then(function (data) {
-        response({ word: data.word, def: data.definitions[0].text });
+        response({ word: data.word, def: data.definitions[0].text, partOfSpeech: data.definitions[0].partOfSpeech, example: data.examples[0].text });
       });
     }).catch(function (err) {
-      response({ word: "Error", def: "There was a problem loading the Word-of-the-Day." });
+      response({ word: "Error", def: "There was a problem loading the Word-of-the-Day.", partOfSpeech: "Please try again later.", example: "Thank you." });
     });
 
     return true;
