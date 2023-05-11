@@ -8,7 +8,8 @@ function BrowserHistory2() {
     const [loading, setLoading] = useState(true);
     const [myData, setMyData] = useState([]);
     var url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
-    var bearer = 'Bearer ' + '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'
+    var bearer = 'Bearer ' + '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'
+    const [recommendation, setRecommendation] = useState("");
 
 
 
@@ -42,6 +43,41 @@ function BrowserHistory2() {
             return null;
         }
     }
+
+    const openrec = () =>{
+        var url = "https://api.openai.com/v1/engines/davinci/completions";
+        var bearer = 'Bearer ' + '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'
+        var highestCount = "social media"
+        fetch(url, {
+         method: 'POST',
+         headers: {
+             'Authorization': bearer,
+             'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+           "prompt": `How can I decrease my + ${highestCount} + website usage?`,
+           "max_tokens": 100,
+           "temperature": 0.7,
+           'top_p': 1.0,
+           'frequency_penalty': 0.0,
+           'presence_penalty': 0.0
+         })
+    
+      }
+    ).then(response => {
+        console.log("response2", response)
+        return response.json()
+    
+    }).then(data=>{
+      console.log("data is", data)
+      console.log("------", data.choices[0].text)
+      setRecommendation(data.choices[0].text)
+    })
+    .catch(error => {
+        console.log('Something bad happened ' + error)
+    });
+      }
+  
     useEffect(() => {
         const websiteList = ["https://platform.openai.com/account/usage",
             "https://calendar.google.com/calendar/u/0/r/week",
@@ -158,7 +194,8 @@ function BrowserHistory2() {
             setLoading(false);
 
         };
-        fetchCategories();
+        fetchCategories().then(()=>{openrec();
+        })
 
 
     }, [])
@@ -192,6 +229,10 @@ function BrowserHistory2() {
                 height={425} 
                 showLabels={true}/> */}
             </div>
+            <div className="wotd-block">
+            <h1 className="wotd">Your Recommendations:</h1>
+            <p className="wotd-def">{recommendation}</p>
+              </div>  
         </div>
     );
 }
