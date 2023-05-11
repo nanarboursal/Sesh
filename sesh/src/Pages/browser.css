@@ -1,0 +1,22 @@
+.wotd {
+    color: black;
+    text-shadow: 4px 4px 4px rgb(163, 168, 214);
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.wotd-def {
+    font-size: 14px;
+}
+
+div.wotd-block {
+    background-color: #c0d4f4;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}

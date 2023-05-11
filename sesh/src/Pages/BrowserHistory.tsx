@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import { Chart } from "react-google-charts";
 //import { Configuration, OpenAIApi } from "openai";
 import { RadialChart } from 'react-vis';
+import "./browser.css";
 
 function BrowserHistory() {
   //   const { Configuration, OpenAIApi } = require("openai");
@@ -13,8 +14,42 @@ function BrowserHistory() {
   const [countTech, setCountTech] = useState(0);
   const [countProd, setCountProd] = useState(0);  
   const [countSocMed, setCountSocMed] = useState(0);  
+  const [recommendation, setRecommendation] = useState("");
+
   useEffect(() => {
-    OpenaiFetchAPI()
+    
+    openrec()
+    // OpenaiFetchAPI()
+    // .then((response)=>{
+    //   console.log("countTech grgegegre", response)
+    //   console.log("answersArr", answersArr)
+    //   console.log("answersArr", answersArr[0])
+    
+     
+    //   let ct2 = 0
+    //   let cp2 = 0
+    //   let csm2 = 0
+    //   for(let k = 0; k < 4; k++){
+    //     console.log("answersArr", answersArr[k])
+    
+    //     if(answersArr[k] === ' Tech'){cp2++}
+    //     if(answersArr[k] === ' Productivity'){ct2++}
+    //     if(answersArr[k] === ' Social Media'){csm2++}
+    //   }
+    //   console.log("countTech grgegegre", ct2, cp2, csm2)
+    //   // setCountTech(ct)
+    //   // setCountSocMed(csm)
+    //   // setCountProd(cp)
+    //   cp = cp2
+    //   csm = csm2
+    //   ct = ct2
+    //   console.log("countTech aaaaa", ct, cp, csm)
+
+    // })
+     
+
+     
+    
   //   fetch('https://cytv6yoi4i.execute-api.us-east-2.amazonaws.com/default/surb') // 'data/data.json' in my case
   //   .then(response=>response.text())
   //   .then(data => {
@@ -30,21 +65,10 @@ function BrowserHistory() {
   //   console.log('Fetch Error');
   // });
   //window.location.reload()
-  console.log("countTech grgegegre", ct, cp, csm)
-  let ct2 = 0
-  let cp2 = 0
-  let csm2 = 0
-  for(let k = 0; k < answersArr.length; k++){
-    
-    if(answersArr[k] === ' Tech'){setCountProd(cp2++)}
-    if(answersArr[k] === ' Productivity'){setCountTech(ct2++)}
-    if(answersArr[k] === ' Social Media'){setCountSocMed(csm2++)}
-  }
-  console.log("countTech grgegegre", ct2, cp2, csm2)
-
+  
   
 
-  }, [countProd])
+  }, [])
 
   interface openAIOutput {
     website: string,
@@ -56,19 +80,59 @@ function BrowserHistory() {
     count: number
   }
 
+  interface chartType {
+    angle: number,
+    label: string
+  }
+
   let answers: openAIOutput [] = [];
   let countArr: categoryCount [] = [];
-  let answersArr = new Array()
+  let answersArr : string[] = [];
+  let valArr: Array<number> = [1,1,1];
 
   let websiteName = ""
   
   let ct = 0
   let cp = 0
   let csm = 0
+
+  const openrec = () =>{
+    var url = "https://api.openai.com/v1/engines/davinci/completions";
+    var bearer = 'Bearer ' + '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'
+    var highestCount = "social media"
+    fetch(url, {
+     method: 'POST',
+     headers: {
+         'Authorization': bearer,
+         'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+       "prompt": `How can I decrease my + ${highestCount} + website usage?`,
+       "max_tokens": 100,
+       "temperature": 0.7,
+       'top_p': 1.0,
+       'frequency_penalty': 0.0,
+       'presence_penalty': 0.0
+     })
+   
+  }
+).then(response => {
+    console.log("response2", response)
+    return response.json()
+   
+}).then(data=>{
+  console.log("data is", data)
+  console.log("------", data.choices[0].text)
+  setRecommendation(data.choices[0].text)
+})
+.catch(error => {
+    console.log('Something bad happened ' + error)
+});
+  }
   const OpenaiFetchAPI = () => {
     console.log("Calling GPT3")
     var url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
-    var bearer = 'Bearer ' + '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'
+    var bearer = 'Bearer ' + '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'
     let websiteList = ["https://platform.openai.com/account/usage",
     "https://calendar.google.com/calendar/u/0/r/week",
     "https://twitter.com/AviSchiffmann",
@@ -118,19 +182,35 @@ function BrowserHistory() {
         // console.log(answers.some(item => item["category"] === data['choices'][0].text))
      
 
-        if(data['choices'][0].text=== ' Tech'){setCountTech(ct++)}
-        if(data['choices'][0].text === ' Productivity'){setCountProd(cp++)}
-        if(data['choices'][0].text === ' Social Media'){setCountSocMed(csm++)}
+        if(data['choices'][0].text=== ' Tech'){ct++}
+        if(data['choices'][0].text === ' Productivity'){cp++}
+        if(data['choices'][0].text === ' Social Media'){csm++}
         // if (answers.some(function(item) {
         //   if(item["category"] === ' Tech'){return countTech++}
         //   // if(item["category"] === ' Productivity'){return countProd++}
         //   // if(item["category"] === ' Social Media'){return countSocMed++}
         // }))
         console.log("countTech----", ct, cp, csm)
+       
+          valArr.push(ct)
+          valArr.push(csm)
+          valArr.push(cp)
+          //setCountTech(ct)
+          console.log("countTech LOL", i,ct, cp, csm)
+
+          // valArr[0] = ct
+          // valArr[1] = csm
+          // valArr[2] = cp
+          console.log("var----", valArr)
+
+        
 
         console.log("countTech", countTech, countProd, countSocMed)
 
-        return
+    })
+    .then(()=>{
+      console.log("countTech OUTSIDE", valArr, valArr[12])
+      //return [{angle: valArr[12],label: 'Productivity'}, {angle:csm,label: 'Social Media'}, {angle:ct,label: 'Tech'}]
     })
         .catch(error => {
             console.log('Something bad happened ' + error)
@@ -138,50 +218,41 @@ function BrowserHistory() {
       }
 
       // out of for loop 
+      console.log("countTech OUTSIDE", valArr, valArr[12])
+      //return [{angle: valArr[12],label: 'Productivity'}, {angle:csm,label: 'Social Media'}, {angle:ct,label: 'Tech'}]
+      // return Promise.resolve(valArr)
+    //   return  (
+    //     <div>
+    //     <div>Browser History Page {countProd}</div>
+    //     <RadialChart
+    //         data={myData}
+    //         width={300}
+    //         height={300} />
+            
+    
+    // </div>
+  
+          
+      // );
 
-      
-     // console.log("answers array = ", answers)
-     url = "https://api.openai.com/v1/engines/davinci/completions";
-     fetch(url, {
-      method: 'POST',
-      headers: {
-          'Authorization': bearer,
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "prompt": "A user has been using Social Media websites 4 times a day and Tech websites 1 time a day. What are some suggestions for them?\n A: ",
-          "max_tokens": 100,
-          "temperature": 0,
-          "top_p": 1,
-          "frequency_penalty":0,
-          "presence_penalty":0,
-          "stop":["\n"]
-      })
+  //    // console.log("answers array = ", answers)
     
 
-  }).then(response => {
-      console.log("response2", response)
-      return response.json()
-     
-  }).then(data=>{
-    console.log("------",data)
-  })
-  .catch(error => {
-      console.log('Something bad happened ' + error)
-  });
 } 
 
-
-const myData = [{angle: countProd,label: 'Productivity'}, {angle:countSocMed,label: 'Social Media'}, {angle:countTech,label: 'Tech'}]
-console.log('myData', myData)
+// console.log("myvar", valArr)
+// const myData = [{angle: valArr[12],label: 'Productivity'}, {angle:valArr[13],label: 'Social Media'}, {angle:countTech,label: 'Tech'}]
+// console.log('myData', myData)
+// console.log("countTech is",countTech)
+// const ledata = OpenaiFetchAPI()
 
     return (
-      <div>
-      <div>Browser History Page {countProd}</div>
-      <RadialChart
-          data={myData}
-          width={300}
-          height={300} />
+      <div className="wotd-block">
+      <div>Browser History Page</div>
+      <h1 className="wotd">Your Recommendations:</h1>
+            <p className="wotd-def">
+                {recommendation}
+            </p>
           
   
   </div>
