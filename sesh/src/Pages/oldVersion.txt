@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 // import { Chart } from "react-google-charts";
 // import { Configuration, OpenAIApi } from "openai";
 import { RadialChart } from 'react-vis';
-import "./browserhistory.css";
 
 // let websiteCategory = new Array();
 // let websiteCategoryCount = new Array();
@@ -21,7 +20,6 @@ let websiteList = ["https://platform.openai.com/account/usage",
             "https://twitter.com/AviSchiffmann",
             "https://github.com/nanarboursal/Sesh"]
 function BrowserHistory() {
-  const [recommendation, setRecommendation] = useState("");
     //   const { Configuration, OpenAIApi } = require("openai");
 
     // const configuration = new Configuration({
@@ -48,49 +46,14 @@ function BrowserHistory() {
         //   console.log('Fetch Error');
         // console.log('catcount2', websiteCategoryCount[1])
         // });
-        openrec()
     })
-
-    const openrec = () =>{
-      var url = "https://api.openai.com/v1/engines/davinci/completions";
-      var bearer = 'Bearer ' + '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'
-      var highestCount = "social media"
-      fetch(url, {
-       method: 'POST',
-       headers: {
-           'Authorization': bearer,
-           'Content-Type': 'application/json'
-       },
-       body: JSON.stringify({
-         "prompt": `How can I decrease my + ${highestCount} + website usage?`,
-         "max_tokens": 100,
-         "temperature": 0.7,
-         'top_p': 1.0,
-         'frequency_penalty': 0.0,
-         'presence_penalty': 0.0
-       })
-  
-    }
-  ).then(response => {
-      console.log("response2", response)
-      return response.json()
-  
-  }).then(data=>{
-    console.log("data is", data)
-    console.log("------", data.choices[0].text)
-    setRecommendation(data.choices[0].text)
-  })
-  .catch(error => {
-      console.log('Something bad happened ' + error)
-  });
-    }
 
     const OpenaiFetchAPI = () => {
         console.log("Calling GPT3")
         
         
         var url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
-        var bearer = 'Bearer ' + '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'
+        var bearer = 'Bearer ' + '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'
         
         
         for (let i = 0; i < websiteList.length; i++) {
@@ -195,10 +158,7 @@ console.log("in the end webDictionary one more time ", websiteDictionary)
                 data={myData}
                 width={300}
                 height={300} />
-            <div className="wotd-block">
-            <h1 className="wotd">Your Recommendations:</h1>
-            <p className="wotd-def">{recommendation}</p>
-              </div>  
+                
         
         </div>
 

@@ -5,7 +5,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Reminders from "../Pages/Reminders";
 import PomodoroTimer from "../Pages/PomodoroTimer";
-import BrowserHistory from "../Pages/BrowserHistory";
+// import BrowserHistory from "../Pages/BrowserHistory";
+import BrowserHistory2 from "../Pages/BrowserHistory2";
 import WordOfTheDay from "../WordOfTheDay/WordOfTheDay";
 import TimerIcon from '@mui/icons-material/Timer';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
@@ -69,7 +70,8 @@ function TabsSection() {
         <PomodoroTimer />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <BrowserHistory />
+        {/* <BrowserHistory /> */}
+        <BrowserHistory2/>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <WordOfTheDay />
