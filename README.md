@@ -1,4 +1,5 @@
 # Sesh
+Sesh is a chrome extension that aims to help improve one's producitvity and life style by reminding you essential tasks such as drinking water, eating, studying breaks and categorizing browser history. 
 SJSU CMPE/SE Department Senior Project by Nanar Boursalian, Annabel Kusumo, Surabhi Gupta, Seema Vora
 
 ## Steps to pull the code
@@ -16,3 +17,8 @@ SJSU CMPE/SE Department Senior Project by Nanar Boursalian, Annabel Kusumo, Sura
 - Pin Sesh's chrome extension.
 - Everytime you made edits, you need to run `npm run build` and click Sesh's chrome extension icon to see the changes
 - Make sure to enable notifications on the device that you are running the project on.
+
+## Code structure
+- The frontend of the chrome extension is under the src folder and holds all the pages, as well as the icons/styling used. 
+   * The key features are Pomodoro timer, Health Reminders, Word of the day and Broswer History Analyzer
+- The backend of the extension is just chrome APIs such as local storage, history and notifications is inside the file called background.js
